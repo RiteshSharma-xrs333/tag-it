@@ -1,6 +1,8 @@
 (function (w) {
 	var _defaultConf = {
 		container: document.body,
+		burst : true,
+		escape: '|'
 	};
 	var _updatedConf = {};
 
@@ -64,7 +66,15 @@
 	function _addInputEvents(inputRef) {
 		inputRef.addEventListener('keyup', function (e) {
 			if(e.keyCode=== 13 || e.keyCode=== 32){
-				_addTag(inputRef.value);
+				if(inputRef.value.indexOf('|') > 0){
+					var tags = inputRef.value.split('|');
+
+					for(var i = 0, l = tags.length; i < l; i++){
+						_addTag(tags[i]);
+					}
+				} else {
+					_addTag(inputRef.value);
+				}
 				inputRef.value= '';
 			}
 		});
