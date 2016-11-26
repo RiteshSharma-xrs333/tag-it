@@ -10,7 +10,10 @@
 	<script type="text/javascript">
 		window.tag({
 			container: document.getElementsByClassName('root')[0],
-			breakAt : '&'
+			breakAt : '&',
+			tagClick : function () {
+				console.log(this)
+			}
 		});
 	</script>
 </body>
