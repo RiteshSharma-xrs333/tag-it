@@ -2,7 +2,7 @@
 	var _defaultConf = {
 		container: document.body,
 		burst : true,
-		escape: '|'
+		breakAt: '|'
 	};
 	var _updatedConf = {};
 
@@ -16,7 +16,6 @@
 		initialElements= generateInitialElements();
 
 		_bindInitialEvents();
-		console.log(_updatedConf);
 		return initialElements;
 
 	}
@@ -60,14 +59,16 @@
 	}
 
 	function _bindInitialEvents() {
-		_addInputEvents(_updatedConf.elems.input);
+		_bindInputEvents(_updatedConf.elems.input);
+		_bindContainerEvents();
 	}
 
-	function _addInputEvents(inputRef) {
+	function _bindInputEvents(inputRef) {
 		inputRef.addEventListener('keyup', function (e) {
 			if(e.keyCode=== 13 || e.keyCode=== 32){
-				if(inputRef.value.indexOf('|') > 0){
-					var tags = inputRef.value.split('|');
+				var breakAtChar = _updatedConf.breakAt;
+				if(inputRef.value.indexOf(breakAtChar) > 0){
+					var tags = inputRef.value.split(breakAtChar);
 
 					for(var i = 0, l = tags.length; i < l; i++){
 						_addTag(tags[i]);
@@ -80,7 +81,7 @@
 		});
 	}
 
-	function _addTagEvents(tagRef) {
+	function _bindTagEvents(tagRef) {
 		tagRef.addEventListener('click', function (event) {
 			if(event.target.className === 'cross'){
 				tagRef.parentElement.removeChild(tagRef);
@@ -88,13 +89,22 @@
 		})
 	}
 
+	function _bindContainerEvents() {
+		var container = _updatedConf.container;
+
+		container.addEventListener('click', function (event) {
+			if(event.target === event.currentTarget){
+				_updatedConf.elems.input.focus();
+			}
+		});
+	}
 	function _addTag(tagValue) {
 		var tag = _updatedConf.elems.dummy.cloneNode(true);
 
 		tag.className= 'tag';
 		tag.getElementsByClassName('text')[0].innerHTML= tagValue;
 		_updatedConf.elems.ul.appendChild(tag);
-		_addTagEvents(tag)
+		_bindTagEvents(tag)
 	}
 
 	function _checkElem(elem) {

@@ -43,6 +43,13 @@ ul > li{
 	margin-right: 5px;
 	padding: 3px 5px;
 	text-transform: capitalize;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .tag > .cross{

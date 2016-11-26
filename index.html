@@ -8,7 +8,10 @@
 	<div class="root tags">Testing</div>
 	<script src="./js/engine.js"></script>
 	<script type="text/javascript">
-		window.tag({container: document.getElementsByClassName('root')[0]});
+		window.tag({
+			container: document.getElementsByClassName('root')[0],
+			breakAt : '&'
+		});
 	</script>
 </body>
 </html>
